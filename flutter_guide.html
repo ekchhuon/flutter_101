@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flutter Complete Beginner Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #02569B 0%, #13B9FD 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header .subtitle {
+            font-size: 1.5em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .nav-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-pill {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #02569B;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: #02569B;
+        }
+
+        .nav-pill:hover {
+            background: #02569B;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(2, 86, 155, 0.3);
+        }
+
+        .section {
+            margin-bottom: 60px;
+            scroll-margin-top: 100px;
+        }
+
+        h2 {
+            color: #02569B;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #13B9FD;
+        }
+
+        h3 {
+            color: #13B9FD;
+            font-size: 1.6em;
+            margin: 30px 0 15px 0;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .code-block code {
+            display: block;
+            white-space: pre;
+        }
+
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .function { color: #dcdcaa; }
+        .number { color: #b5cea8; }
+
+        .command-block {
+            background: #f6f8fa;
+            border-left: 4px solid #0366d6;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            display: flex;
+            align-items: center;
+        }
+
+        .command-block .prompt {
+            color: #22863a;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .command-block code {
+            color: #24292e;
+        }
+
+        .info-box {
+            background: #e8f4f8;
+            border-left: 5px solid #0366d6;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .info-box.tip {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+        }
+
+        .info-box.warning {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+
+        .info-box.success {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+
+        .info-box-title {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .widget-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #13B9FD;
+        }
+
+        .widget-card h4 {
+            color: #02569B;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .project-card h4 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+
+        .project-card .difficulty {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            background: #02569B;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .footer h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+
+            .nav-pills {
+                position: relative;
+            }
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #02569B;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            font-size: 24px;
+        }
+
+        .back-to-top:hover {
+            background: #13B9FD;
+            transform: translateY(-5px);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #02569B;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Flutter</h1>
+            <div class="subtitle">Complete Beginner Guide</div>
+            <p style="margin-top: 20px; font-size: 1.1em;">From Zero to Building Your First App</p>
+        </div>
+
+        <div class="content">
+            <!-- Navigation -->
+            <div class="nav-pills">
+                <div class="nav-pill" onclick="scrollToSection('intro')">Introduction</div>
+                <div class="nav-pill" onclick="scrollToSection('setup')">Setup</div>
+                <div class="nav-pill" onclick="scrollToSection('dart')">Dart Basics</div>
+                <div class="nav-pill" onclick="scrollToSection('widgets')">Widgets</div>
+                <div class="nav-pill" onclick="scrollToSection('layouts')">Layouts</div>
+                <div class="nav-pill" onclick="scrollToSection('app')">Complete App</div>
+                <div class="nav-pill" onclick="scrollToSection('navigation')">Navigation</div>
+                <div class="nav-pill" onclick="scrollToSection('state')">State Management</div>
+                <div class="nav-pill" onclick="scrollToSection('async')">Async</div>
+                <div class="nav-pill" onclick="scrollToSection('packages')">Packages</div>
+                <div class="nav-pill" onclick="scrollToSection('debugging')">Debugging</div>
+                <div class="nav-pill" onclick="scrollToSection('projects')">Projects</div>
+            </div>
+
+            <!-- Section 1: Introduction -->
+            <div class="section" id="intro">
+                <h2>📱 What is Flutter?</h2>
+                <p>Flutter is Google's open-source UI toolkit for building beautiful, natively compiled applications for mobile, web, and desktop from a <strong>single codebase</strong>.</p>
+                
+                <div class="info-box">
+                    <div class="info-box-title">🧩 Key Concept</div>
+                    <p><strong>Everything in Flutter is a Widget!</strong> Widgets are the building blocks of your UI - from buttons and text to layouts and animations.</p>
+                </div>
+
+                <h3>Why Choose Flutter?</h3>
+                <ul>
+                    <li><strong>Fast Development</strong> - Hot reload sees changes instantly</li>
+                    <li><strong>Beautiful UI</strong> - Rich set of customizable widgets</li>
+                    <li><strong>Native Performance</strong> - Compiles to native ARM code</li>
+                    <li><strong>Single Codebase</strong> - iOS, Android, Web, Desktop from one code</li>
+                </ul>
+            </div>
+
+            <!-- Section 2: Setup -->
+            <div class="section" id="setup">
+                <h2>⚙️ Installation & Setup</h2>
+                
+                <h3>Step 1: Install Flutter SDK</h3>
+                <p>Download from <strong>https://flutter.dev</strong> and follow platform-specific instructions</p>
+
+                <h3>Step 2: Verify Installation</h3>
+                <div class="command-block">
+                    <span class="prompt">$</span>
+                    <code>flutter doctor</code>
+                </div>
+                <p><em>Checks your environment and displays a report</em></p>
+
+                <div class="command-block">
+                    <span class="prompt">$</span>
+                    <code>flutter doctor -v</code>
+                </div>
+                <p><em>Verbose output for detailed information</em></p>
+
+                <h3>Step 3: Create Your First App</h3>
+                <div class="command-block">
+                    <span class="prompt">$</span>
+                    <code>flutter create my_first_app</code>
+                </div>
+                
+                <div class="command-block">
+                    <span class="prompt">$</span>
+                    <code>cd my_first_app</code>
+                </div>
+                
+                <div class="command-block">
+                    <span class="prompt">$</span>
+                    <code>flutter run</code>
+                </div>
+
+                <div class="info-box tip">
+                    <div class="info-box-title">⚡ Pro Tip</div>
+                    <p>Use <code>flutter run -d chrome</code> to run on Chrome web browser for quick testing without an emulator!</p>
+                </div>
+
+                <h3>Essential Flutter Commands</h3>
+                <table>
+                    <tr>
+                        <th>Command</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td><code>flutter devices</code></td>
+                        <td>List all connected devices</td>
+                    </tr>
+                    <tr>
+                        <td><code>flutter pub get</code></td>
+                        <td>Download dependencies</td>
+                    </tr>
+                    <tr>
+                        <td><code>flutter pub add package_name</code></td>
+                        <td>Add a new package</td>
+                    </tr>
+                    <tr>
+                        <td><code>flutter clean</code></td>
+                        <td>Delete build/ directory (fixes many issues)</td>
+                    </tr>
+                    <tr>
+                        <td><code>flutter build apk</code></td>
+                        <td>Build Android APK for release</td>
+                    </tr>
+                    <tr>
+                        <td><code>flutter build ios</code></td>
+                        <td>Build iOS app for release</td>
+                    </tr>
+                    <tr>
+                        <td><code>flutter upgrade</code></td>
+                        <td>Upgrade Flutter SDK</td>
+                    </tr>
+                    <tr>
+                        <td><code>flutter analyze</code></td>
+                        <td>Analyze code for issues</td>
+                    </tr>
+                    <tr>
+                        <td><code>flutter test</code></td>
+                        <td>Run all tests</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Section 3: Dart Basics -->
+            <div class="section" id="dart">
+                <h2>📝 Dart Language Essentials</h2>
+                
+                <h3>Variables & Types</h3>
+                <div class="code-block">
+<code><span class="comment">// Type inference</span>
+<span class="keyword">var</span> name = <span class="string">'John'</span>;              <span class="comment">// String</span>
+<span class="keyword">var</span> age = <span class="number">25</span>;                   <span class="comment">// int</span>
+<span class="keyword">var</span> height = <span class="number">5.9</span>;               <span class="comment">// double</span>
+
+<span class="comment">// Explicit types</span>
+<span class="keyword">String</span> city = <span class="string">'New York'</span>;
+<span class="keyword">int</span> population = <span class="number">8000000</span>;
+<span class="keyword">double</span> temperature = <span class="number">72.5</span>;
+<span class="keyword">bool</span> isValid = <span class="keyword">true</span>;
+
+<span class="comment">// Constants</span>
+<span class="keyword">final</span> userId = <span class="number">12345</span>;           <span class="comment">// Runtime constant</span>
+<span class="keyword">const</span> pi = <span class="number">3.14159</span>;             <span class="comment">// Compile-time constant</span></code>
+                </div>
+
+                <h3>Null Safety</h3>
+                <div class="code-block">
+<code><span class="comment">// Nullable types (can be null)</span>
+<span class="keyword">String</span>? nullableName;
+<span class="keyword">int</span>? nullableAge;
+
+<span class="comment">// Non-nullable types (cannot be null)</span>
+<span class="keyword">String</span> name = <span class="string">'John'</span>;           <span class="comment">// Must be initialized</span>
+
+<span class="comment">// Null-aware operators</span>
+<span class="keyword">String</span>? username;
+<span class="function">print</span>(username ?? <span class="string">'Guest'</span>);     <span class="comment">// Use 'Guest' if null</span>
+<span class="function">print</span>(username?.length);        <span class="comment">// Safe navigation</span></code>
+                </div>
+
+                <h3>Collections</h3>
+                <div class="code-block">
+<code><span class="comment">// Lists (ordered, indexed)</span>
+<span class="keyword">List</span>&lt;<span class="keyword">String</span>&gt; fruits = [<span class="string">'Apple'</span>, <span class="string">'Banana'</span>, <span class="string">'Orange'</span>];
+fruits.<span class="function">add</span>(<span class="string">'Mango'</span>);
+<span class="function">print</span>(fruits[<span class="number">0</span>]);               <span class="comment">// Apple</span>
+
+<span class="comment">// Maps (key-value pairs)</span>
+<span class="keyword">Map</span>&lt;<span class="keyword">String</span>, <span class="keyword">int</span>&gt; ages = {
+  <span class="string">'John'</span>: <span class="number">25</span>,
+  <span class="string">'Jane'</span>: <span class="number">30</span>,
+};
+<span class="function">print</span>(ages[<span class="string">'John'</span>]);            <span class="comment">// 25</span>
+
+<span class="comment">// Sets (unique values)</span>
+<span class="keyword">Set</span>&lt;<span class="keyword">int</span>&gt; uniqueNumbers = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">4</span>};
+<span class="function">print</span>(uniqueNumbers);           <span class="comment">// {1, 2, 3, 4}</span></code>
+                </div>
+
+                <h3>Functions</h3>
+                <div class="code-block">
+<code><span class="comment">// Regular function</span>
+<span class="keyword">String</span> <span class="function">greet</span>(<span class="keyword">String</span> name) {
+  <span class="keyword">return</span> <span class="string">'Hello, $name!'</span>;
+}
+
+<span class="comment">// Arrow function (single expression)</span>
+<span class="keyword">String</span> <span class="function">greet</span>(<span class="keyword">String</span> name) => <span class="string">'Hello, $name!'</span>;
+
+<span class="comment">// Optional parameters</span>
+<span class="keyword">void</span> <span class="function">printInfo</span>(<span class="keyword">String</span> name, [<span class="keyword">int</span>? age]) {
+  <span class="function">print</span>(<span class="string">'Name: $name, Age: ${age ?? "unknown"}'</span>);
+}
+
+<span class="comment">// Named parameters</span>
+<span class="keyword">void</span> <span class="function">createUser</span>({<span class="keyword">required</span> <span class="keyword">String</span> name, <span class="keyword">int</span> age = <span class="number">18</span>}) {
+  <span class="function">print</span>(<span class="string">'User: $name, Age: $age'</span>);
+}
+<span class="function">createUser</span>(name: <span class="string">'John'</span>, age: <span class="number">25</span>);</code>
+                </div>
+
+                <h3>Classes & Objects</h3>
+                <div class="code-block">
+<code><span class="keyword">class</span> Person {
+  <span class="keyword">String</span> name;
+  <span class="keyword">int</span> age;
+  
+  <span class="comment">// Constructor</span>
+  Person(<span class="keyword">this</span>.name, <span class="keyword">this</span>.age);
+  
+  <span class="comment">// Named constructor</span>
+  Person.<span class="function">guest</span>() : name = <span class="string">'Guest'</span>, age = <span class="number">0</span>;
+  
+  <span class="comment">// Method</span>
+  <span class="keyword">void</span> <span class="function">introduce</span>() {
+    <span class="function">print</span>(<span class="string">'Hi, I\'m $name, $age years old'</span>);
+  }
+}
+
+<span class="comment">// Usage</span>
+<span class="keyword">var</span> person = Person(<span class="string">'John'</span>, <span class="number">25</span>);
+person.<span class="function">introduce</span>();</code>
+                </div>
+            </div>
+
+            <!-- Section 4: Widget Fundamentals -->
+            <div class="section" id="widgets">
+                <h2>🧩 Widget Fundamentals</h2>
+                
+                <div class="info-box">
+                    <div class="info-box-title">📦 Understanding Widgets</div>
+                    <p>Widgets describe what their view should look like. Flutter builds the UI by composing simple widgets into complex ones.</p>
+                </div>
+
+                <h3>StatelessWidget - Immutable UI</h3>
+                <p>Use when UI doesn't change after creation (static content)</p>
+                <div class="code-block">
+<code><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;
+
+<span class="keyword">class</span> Greeting <span class="keyword">extends</span> StatelessWidget {
+  <span class="keyword">final</span> <span class="keyword">String</span> name;
+  
+  Greeting({<span class="keyword">required</span> <span class="keyword">this</span>.name});
+  
+  <span class="keyword">@override</span>
+  <span class="keyword">Widget</span> <span class="function">build</span>(<span class="keyword">BuildContext</span> context) {
+    <span class="keyword">return</span> Text(<span class="string">'Hello, $name!'</span>);
+  }
+}</code>
+                </div>
+
+                <h3>StatefulWidget - Dynamic UI</h3>
+                <p>Use when UI needs to change based on user interaction or data updates</p>
+                <div class="code-block">
+<code><span class="keyword">class</span> Counter <span class="keyword">extends</span> StatefulWidget {
+  <span class="keyword">@override</span>
+  _CounterState <span class="function">createState</span>() => _CounterState();
+}
+
+<span class="keyword">class</span> _CounterState <span class="keyword">extends</span> State&lt;Counter&gt; {
+  <span class="keyword">int</span> count = <span class="number">0</span>;
+  
+  <span class="keyword">void</span> <span class="function">increment</span>() {
+    <span class="function">setState</span>(() {
+      count++;              <span class="comment">// Update state</span>
+    });                     <span class="comment">// Triggers rebuild</span>
+  }
+  
+  <span class="keyword">@override</span>
+  <span class="keyword">Widget</span> <span class="function">build</span>(<span class="keyword">BuildContext</span> context) {
+    <span class="keyword">return</span> Column(
+      children: [
+        Text(<span class="string">'Count: $count'</span>),
+        ElevatedButton(
+          onPressed: increment,
+          child: Text(<span class="string">'Increment'</span>),
+        ),
+      ],
+    );
+  }
+}</code>
+                </div>
+
+                <div class="info-box warning">
+                    <div class="info-box-title">⚠️ setState() Explained</div>
+                    <p>Always wrap state changes in <code>setState()</code>. This tells Flutter to rebuild the widget with new data. Without it, UI won't update!</p>
+                </div>
+            </div>
+
+            <!-- Section 5: Essential Layouts -->
+            <div class="section" id="layouts">
+                <h2>📐 Essential Layout Widgets</h2>
+                
+                <div class="widget-card">
+                    <h4>Container - The Swiss Army knife</h4>
+                    <div class="code-block">
+<code>Container(
+  width: <span class="number">100</span>,
+  height: <span class="number">100</span>,
+  padding: EdgeInsets.<span class="function">all</span>(<span class="number">16</span>),
+  margin: EdgeInsets.<span class="function">symmetric</span>(vertical: <span class="number">8</span>),
+  decoration: BoxDecoration(
+    color: Colors.blue,
+    borderRadius: BorderRadius.<span class="function">circular</span>(<span class="number">12</span>),
+  ),
+  child: Text(<span class="string">'Styled Box'</span>),
+)</code>
+                    </div>
+                </div>
+
+                <div class="widget-card">
+                    <h4>Column & Row - Vertical and horizontal layouts</h4>
+                    <div class="code-block">
+<code><span class="comment">// Vertical layout</span>
+Column(
+  mainAxisAlignment: MainAxisAlignment.center,
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    Text(<span class="string">'First'</span>),
+    Text(<span class="string">'Second'</span>),
+    Text(<span class="string">'Third'</span>),
+  ],
+)
+
+<span class="comment">// Horizontal layout</span>
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
+    Icon(Icons.home),
+    Icon(Icons.favorite),
+    Icon(Icons.settings),
+  ],
+)</code>
+                    </div>
+                </div>
+
+                <div class="info-box tip">
+                    <div class="info-box-title">📐 MainAxis vs CrossAxis</div>
+                    <p><strong>Column:</strong> MainAxis = Vertical, CrossAxis = Horizontal<br>
+                    <strong>Row:</strong> MainAxis = Horizontal, CrossAxis = Vertical</p>
+                </div>
+
+                <div class="widget-card">
+                    <h4>Stack - Overlay widgets</h4>
+                    <div class="code-block">
+<code>Stack(
+  children: [
+    Container(width: <span class="number">200</span>, height: <span class="number">200</span>, color: Colors.blue),
+    Positioned(
+      top: <span class="number">20</span>,
+      right: <span class="number">20</span>,
+      child: Icon(Icons.star, color: Colors.yellow),
+    ),
+  ],
+)</code>
+                    </div>
+                </div>
+
+                <div class="widget-card">
+                    <h4>ListView - Scrollable list</h4>
+                    <div class="code-block">
+<code><span class="comment">// Simple ListView</span>
+ListView(
+  children: [
+    ListTile(title: Text(<span class="string">'Item 1'</span>)),
+    ListTile(title: Text(<span class="string">'Item 2'</span>)),
+  ],
+)
+
+<span class="comment">// ListView.builder (efficient for large lists)</span>
+ListView.<span class="function">builder</span>(
+  itemCount: <span class="number">1000</span>,
+  itemBuilder: (context, index) {
+    <span class="keyword">return</span> ListTile(
+      leading: Icon(Icons.person),
+      title: Text(<span class="string">'User $index'</span>),
+      subtitle: Text(<span class="string">'user$index@email.com'</span>),
+      trailing: Icon(Icons.arrow_forward),
+      onTap: () => <span class="function">print</span>(<span class="string">'Tapped $index'</span>),
+    );
+  },
+)</code>
+                    </div>
+                </div>
+
+                <div class="widget-card">
+                    <h4>Buttons</h4>
+                    <div class="code-block">
+<code><span class="comment">// Elevated Button</span>
+ElevatedButton(
+  onPressed: () => <span class="function">print</span>(<span class="string">'Clicked!'</span>),
+  child: Text(<span class="string">'Click Me'</span>),
+)
+
+<span class="comment">// Text Button</span>
+TextButton(
+  onPressed: () {},
+  child: Text(<span class="string">'Cancel'</span>),
+)
+
+<span class="comment">// Icon Button</span>
+IconButton(
+  icon: Icon(Icons.favorite),
+  onPressed: () {},
+)</code>
+                    </div>
+                </div>
+
+                <div class="widget-card">
+                    <h4>TextField - Text Input</h4>
+                    <div class="code-block">
+<code>TextField(
+  decoration: InputDecoration(
+    labelText: <span class="string">'Username'</span>,
+    hintText: <span class="string">'Enter your username'</span>,
+    prefixIcon: Icon(Icons.person),
+    border: OutlineInputBorder(),
+  ),
+  onChanged: (value) {
+    <span class="function">print</span>(<span class="string">'Text: $value'</span>);
+  },
+)</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6: Complete App -->
+            <div class="section" id="app">
+                <h2>📱 Building a Complete App</h2>
+                
+                <h3>Basic App Template</h3>
+                <div class="code-block">
+<code><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;
+
+<span class="keyword">void</span> <span class="function">main</span>() {
+  <span class="function">runApp</span>(MyApp());
+}
+
+<span class="keyword">class</span> MyApp <span class="keyword">extends</span> StatelessWidget {
+  <span class="keyword">@override</span>
+  <span class="keyword">Widget</span> <span class="function">build</span>(<span class="keyword">BuildContext</span> context) {
+    <span class="keyword">return</span> MaterialApp(
+      title: <span class="string">'My App'</span>,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        brightness: Brightness.light,
+      ),
+      home: HomePage(),
+      debugShowCheckedModeBanner: <span class="keyword">false</span>,
+    );
+  }
+}
+
+<span class="keyword">class</span> HomePage <span class="keyword">extends</span> StatelessWidget {
+  <span class="keyword">@override</span>
+  <span class="keyword">Widget</span> <span class="function">build</span>(<span class="keyword">BuildContext</span> context) {
+    <span class="keyword">return</span> Scaffold(
+      appBar: AppBar(
+        title: Text(<span class="string">'Home'</span>),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: Center(
+        child: Text(<span class="string">'Hello Flutter!'</span>),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: <span class="string">'Home'</span>,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: <span class="string">'Search'</span>,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: <span class="string">'Profile'</span>,
+          ),
+        ],
+      ),
+    );
+  }
+}</code>
+                </div>
+            </div>
+
+            <!-- Section 7: Navigation -->
+            <div class="section" id="navigation">
+                <h2>🧭 Navigation Between Screens</h2>
+                
+                <h3>Basic Navigation</h3>
+                <div class="code-block">
+<code><span class="comment">// Navigate to new screen</span>
+Navigator.<span class="function">push</span>(
+  context,
+  MaterialRoute(
+    builder: (context) => DetailScreen(data: <span class="string">'Hello'</span>),
+  ),
+);
+
+<span class="comment">// Go back</span>
+Navigator.<span class="function">pop</span>(context);
+
+<span class="comment">// Navigate and return data</span>
+<span class="keyword">final</span> result = <span class="keyword">await</span> Navigator.<span class="function">push</span>(
+  context,
+  MaterialRoute(builder: (context) => SelectionScreen()),
+);
+<span class="function">print</span>(<span class="string">'Selected: $result'</span>);</code>
+                </div>
+
+                <h3>Named Routes</h3>
+                <div class="code-block">
+<code>MaterialApp(
+  initialRoute: <span class="string">'/'</span>,
+  routes: {
+    <span class="string">'/'</span>: (context) => HomeScreen(),
+    <span class="string">'/details'</span>: (context) => DetailsScreen(),
+    <span class="string">'/settings'</span>: (context) => SettingsScreen(),
+  },
+)
+
+<span class="comment">// Navigate using route name</span>
+Navigator.<span class="function">pushNamed</span>(context, <span class="string">'/details'</span>);</code>
+                </div>
+            </div>
+
+            <!-- Section 8: State Management -->
+            <div class="section" id="state">
+                <h2>🔄 State Management</h2>
+                
+                <h3>setState() - For Simple State</h3>
+                <div class="code-block">
+<code><span class="keyword">class</span> CounterApp <span class="keyword">extends</span> StatefulWidget {
+  <span class="keyword">@override</span>
+  _CounterAppState <span class="function">createState</span>() => _CounterAppState();
+}
+
+<span class="keyword">class</span> _CounterAppState <span class="keyword">extends</span> State&lt;CounterApp&gt; {
+  <span class="keyword">int</span> counter = <span class="number">0</span>;
+  
+  <span class="keyword">void</span> <span class="function">increment</span>() {
+    <span class="function">setState</span>(() {
+      counter++;
+    });
+  }
+  
+  <span class="keyword">@override</span>
+  <span class="keyword">Widget</span> <span class="function">build</span>(<span class="keyword">BuildContext</span> context) {
+    <span class="keyword">return</span> Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(<span class="string">'Count: $counter'</span>, 
+                 style: TextStyle(fontSize: <span class="number">48</span>)),
+            SizedBox(height: <span class="number">20</span>),
+            ElevatedButton(
+              onPressed: increment,
+              child: Text(<span class="string">'Increment'</span>),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}</code>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">📚 State Management Libraries</div>
+                    <p>For complex apps, consider: <strong>Provider</strong> (official), <strong>Riverpod</strong>, <strong>Bloc</strong>, <strong>GetX</strong>, or <strong>MobX</strong>. Start with setState(), upgrade when needed.</p>
+                </div>
+            </div>
+
+            <!-- Section 9: Async Programming -->
+            <div class="section" id="async">
+                <h2>⏱️ Asynchronous Programming</h2>
+                
+                <h3>Future & Async/Await</h3>
+                <div class="code-block">
+<code><span class="comment">// Simple async function</span>
+<span class="keyword">Future</span>&lt;<span class="keyword">String</span>&gt; <span class="function">fetchData</span>() <span class="keyword">async</span> {
+  <span class="keyword">await</span> Future.<span class="function">delayed</span>(Duration(seconds: <span class="number">2</span>));
+  <span class="keyword">return</span> <span class="string">'Data loaded!'</span>;
+}
+
+<span class="comment">// Using async/await</span>
+<span class="keyword">void</span> <span class="function">loadData</span>() <span class="keyword">async</span> {
+  <span class="function">print</span>(<span class="string">'Loading...'</span>);
+  <span class="keyword">String</span> data = <span class="keyword">await</span> <span class="function">fetchData</span>();
+  <span class="function">print</span>(data);
+}
+
+<span class="comment">// Error handling</span>
+<span class="keyword">void</span> <span class="function">loadDataWithError</span>() <span class="keyword">async</span> {
+  <span class="keyword">try</span> {
+    <span class="keyword">String</span> data = <span class="keyword">await</span> <span class="function">fetchData</span>();
+    <span class="function">print</span>(data);
+  } <span class="keyword">catch</span> (e) {
+    <span class="function">print</span>(<span class="string">'Error: $e'</span>);
+  }
+}</code>
+                </div>
+
+                <h3>FutureBuilder Widget</h3>
+                <div class="code-block">
+<code>FutureBuilder&lt;<span class="keyword">String</span>&gt;(
+  future: <span class="function">fetchData</span>(),
+  builder: (context, snapshot) {
+    <span class="keyword">if</span> (snapshot.connectionState == ConnectionState.waiting) {
+      <span class="keyword">return</span> CircularProgressIndicator();
+    }
+    
+    <span class="keyword">if</span> (snapshot.hasError) {
+      <span class="keyword">return</span> Text(<span class="string">'Error: ${snapshot.error}'</span>);
+    }
+    
+    <span class="keyword">if</span> (snapshot.hasData) {
+      <span class="keyword">return</span> Text(<span class="string">'Data: ${snapshot.data}'</span>);
+    }
+    
+    <span class="keyword">return</span> Text(<span class="string">'No data'</span>);
+  },
+)</code>
+                </div>
+            </div>
+
+            <!-- Section 10: Packages -->
+            <div class="section" id="packages">
+                <h2>📦 Essential Packages</h2>
+                
+                <h3>Must-Have Packages</h3>
+                <table>
+                    <tr>
+                        <th>Package</th>
+                        <th>Purpose</th>
+                        <th>Install Command</th>
+                    </tr>
+                    <tr>
+                        <td><strong>http</strong></td>
+                        <td>Make HTTP requests</td>
+                        <td><code>flutter pub add http</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>provider</strong></td>
+                        <td>State management (official)</td>
+                        <td><code>flutter pub add provider</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>shared_preferences</strong></td>
+                        <td>Store simple data locally</td>
+                        <td><code>flutter pub add shared_preferences</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>cached_network_image</strong></td>
+                        <td>Image loading with caching</td>
+                        <td><code>flutter pub add cached_network_image</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>google_fonts</strong></td>
+                        <td>Use Google Fonts easily</td>
+                        <td><code>flutter pub add google_fonts</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>url_launcher</strong></td>
+                        <td>Launch URLs, emails, phone calls</td>
+                        <td><code>flutter pub add url_launcher</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>intl</strong></td>
+                        <td>Internationalization and formatting</td>
+                        <td><code>flutter pub add intl</code></td>
+                    </tr>
+                </table>
+
+                <div class="info-box tip">
+                    <div class="info-box-title">🔍 Finding Packages</div>
+                    <p>Search for packages at <strong>pub.dev</strong> - the official Flutter package repository. Check popularity score and maintenance status!</p>
+                </div>
+            </div>
+
+            <!-- Section 11: Debugging -->
+            <div class="section" id="debugging">
+                <h2>🐛 Debugging & Best Practices</h2>
+                
+                <h3>Hot Reload Commands</h3>
+                <p>While app is running in terminal:</p>
+                <ul>
+                    <li><strong>r</strong> - Hot reload (apply changes)</li>
+                    <li><strong>R</strong> - Hot restart (full restart)</li>
+                    <li><strong>h</strong> - Help (show all commands)</li>
+                    <li><strong>q</strong> - Quit</li>
+                    <li><strong>d</strong> - Detach (keep app running)</li>
+                    <li><strong>P</strong> - Toggle performance overlay</li>
+                </ul>
+
+                <h3>Common Issues & Solutions</h3>
+                <div class="info-box warning">
+                    <div class="info-box-title">🔧 Build Errors?</div>
+                    <p>Try <code>flutter clean</code> then <code>flutter pub get</code>. This fixes 90% of weird build issues!</p>
+                </div>
+
+                <div class="info-box warning">
+                    <div class="info-box-title">📱 Widget Overflow?</div>
+                    <p>Use <code>SingleChildScrollView</code> or <code>ListView</code> to make content scrollable.</p>
+                </div>
+
+                <div class="info-box warning">
+                    <div class="info-box-title">🔄 UI Not Updating?</div>
+                    <p>Make sure you're calling <code>setState()</code> when changing state in StatefulWidget!</p>
+                </div>
+
+                <h3>Best Practices</h3>
+                <ul>
+                    <li>✓ Use <code>const</code> constructors when possible for better performance</li>
+                    <li>✓ Extract widgets to keep build methods small and readable</li>
+                    <li>✓ Use meaningful variable and widget names</li>
+                    <li>✓ Handle null safety properly with <code>?</code> and <code>!</code></li>
+                    <li>✓ Use async/await for asynchronous operations</li>
+                    <li>✓ Test on multiple devices and screen sizes</li>
+                    <li>✓ Follow Flutter's Material Design or Cupertino guidelines</li>
+                </ul>
+            </div>
+
+            <!-- Section 12: Practice Projects -->
+            <div class="section" id="projects">
+                <h2>🎯 Practice Projects</h2>
+                <p>Start building these projects to solidify your Flutter skills:</p>
+
+                <div class="project-card">
+                    <div class="difficulty">Beginner</div>
+                    <h4>1. Counter App</h4>
+                    <p>Simple app with increment/decrement buttons</p>
+                    <p><strong>Learn:</strong> StatefulWidget, setState(), basic UI</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="difficulty">Beginner</div>
+                    <h4>2. Todo List</h4>
+                    <p>Add, delete, and mark tasks as complete</p>
+                    <p><strong>Learn:</strong> ListView, state management, user input</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="difficulty">Intermediate</div>
+                    <h4>3. Calculator</h4>
+                    <p>Basic arithmetic operations with clean UI</p>
+                    <p><strong>Learn:</strong> GridView, complex state, number parsing</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="difficulty">Intermediate</div>
+                    <h4>4. Weather App</h4>
+                    <p>Fetch weather data from API and display it</p>
+                    <p><strong>Learn:</strong> HTTP requests, JSON parsing, FutureBuilder</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="difficulty">Intermediate</div>
+                    <h4>5. Notes App</h4>
+                    <p>Create, edit, save notes with local storage</p>
+                    <p><strong>Learn:</strong> shared_preferences, navigation, CRUD operations</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="difficulty">Advanced</div>
+                    <h4>6. Chat UI</h4>
+                    <p>Build a messaging interface like WhatsApp</p>
+                    <p><strong>Learn:</strong> ListView.builder, TextField, custom widgets</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="difficulty">Advanced</div>
+                    <h4>7. E-commerce App</h4>
+                    <p>Product list, cart, checkout flow</p>
+                    <p><strong>Learn:</strong> Complex navigation, state management, animations</p>
+                </div>
+
+                <h3>Learning Resources</h3>
+                <div class="info-box success">
+                    <div class="info-box-title">📚 Official Documentation</div>
+                    <ul>
+                        <li><strong>flutter.dev/docs</strong> - Complete Flutter documentation</li>
+                        <li><strong>dart.dev</strong> - Dart language tour and guides</li>
+                        <li><strong>pub.dev</strong> - Flutter packages repository</li>
+                    </ul>
+                </div>
+
+                <div class="info-box success">
+                    <div class="info-box-title">💬 Community</div>
+                    <ul>
+                        <li><strong>Flutter Discord</strong> - Active community chat</li>
+                        <li><strong>Stack Overflow</strong> - Search flutter tag</li>
+                        <li><strong>r/FlutterDev</strong> - Reddit community</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h3>🚀 Congratulations!</h3>
+            <p style="font-size: 1.2em; margin: 20px 0;">You now have all the fundamentals to start building Flutter apps.</p>
+            <p style="font-size: 1.1em; margin: 20px 0;">Remember: Every expert was once a beginner. Keep building, keep learning, and don't give up!</p>
+            <h2 style="margin-top: 30px;">Happy Flutter Development! 🎉</h2>
+            <p style="margin-top: 20px; font-size: 1.1em;">Now go build something amazing!</p>
+        </div>
+    </div>
+
+    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        ↑
+    </div>
+
+    <script>
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Show/hide back to top button
+        window.addEventListener('scroll', function() {
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTop.style.display = 'flex';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
